@@ -96,7 +96,7 @@
 &trans           &trans           &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9  &kp PLUS     &rgb_ug RGB_COLOR_HSB(123,100,50)  &kp F5         &kp PERCENT  &kp UP    &kp AMPERSAND  &rgb_ug RGB_HUI  &rgb_ug RGB_HUD
 &trans           &trans           &kp NUMBER_4   &kp NUMBER_5  &kp NUMBER_6  &kp MINUS    &rgb_ug RGB_COLOR_HSB(0,100,50)    &kp PAGE_UP    &kp LEFT     &kp DOWN  &kp RIGHT      &rgb_ug RGB_SAI  &rgb_ug RGB_SAD
 &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &kp NUMBER_1   &kp NUMBER_2  &kp NUMBER_3  &kp EQUAL    &rgb_ug RGB_COLOR_HSB(234,100,50)  &kp PAGE_DOWN  &trans       &trans    &trans         &rgb_ug RGB_BRI  &rgb_ug RGB_BRD
-&kp C_MUTE       &trans           &trans         &trans        &trans        &trans       &rgb_ug RGB_COLOR_HSB(298,100,50)  &trans         &trans       &trans    &trans         &trans
+&kp C_MUTE       &trans           &trans         &trans        &trans        &trans       &rgb_ug RGB_COLOR_HSB(298,100,50)  &mo 2          &trans       &trans    &trans         &trans
             >;
 
             display-name = "layer1";
