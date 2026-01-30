@@ -33,7 +33,7 @@ layers:
   - T
   - S
   - G
-  - {t: '$$mdi:transfer$$', type: trans}
+  - $$mdi:arrow-left-bold$$
   - P
   - H
   - A
@@ -46,7 +46,7 @@ layers:
   - M
   - W
   - Z
-  - {t: '$$mdi:transfer$$', type: trans}
+  - $$mdi:arrow-right-bold$$
   - K
   - F
   - {t: '''', s: '"'}
@@ -132,8 +132,8 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   layer2:
   - '~'
-  - ^
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '#'
+  - KP NUMLOCK
   - {t: '0', s: )}
   - '%'
   - '*'
@@ -141,24 +141,24 @@ layers:
   - '*'
   - '%'
   - {t: '0', s: )}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - ^
+  - KP NUMLOCK
+  - '#'
   - '~'
   - $
-  - '#'
+  - '!'
   - {t: '7', s: '&'}
   - {t: '8', s: '*'}
   - {t: '9', s: (}
-  - +
+  - {t: '=', s: +}
   - OUT USB
-  - +
+  - {t: '=', s: +}
   - {t: '7', s: '&'}
   - {t: '8', s: '*'}
   - {t: '9', s: (}
-  - '#'
+  - '!'
   - $
   - '@'
-  - '&'
+  - {t: /, s: '?'}
   - {t: '4', s: $}
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
@@ -168,9 +168,9 @@ layers:
   - {t: '4', s: $}
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
-  - '&'
+  - {t: /, s: '?'}
   - '@'
-  - '!'
+  - '&'
   - '?'
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
@@ -182,7 +182,7 @@ layers:
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
   - '?'
-  - '!'
+  - '&'
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -228,7 +228,7 @@ layers:
   - N
   - C
   - U
-  - {t: '$$mdi:transfer$$', type: trans}
+  - $$mdi:arrow-left-bold$$
   - G
   - S
   - F
@@ -241,7 +241,7 @@ layers:
   - V
   - Q
   - P
-  - {t: '$$mdi:transfer$$', type: trans}
+  - $$mdi:arrow-right-bold$$
   - R
   - A
   - M
@@ -327,8 +327,8 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   layer5:
   - '~'
-  - ^
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '#'
+  - KP NUMLOCK
   - {t: '0', s: )}
   - '%'
   - '*'
@@ -336,24 +336,24 @@ layers:
   - '*'
   - '%'
   - {t: '0', s: )}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - ^
+  - KP NUMLOCK
+  - '#'
   - '~'
   - $
-  - '#'
+  - '!'
   - {t: '7', s: '&'}
   - {t: '8', s: '*'}
   - {t: '9', s: (}
-  - +
+  - {t: '=', s: +}
   - OUT USB
-  - +
+  - {t: '=', s: +}
   - {t: '7', s: '&'}
   - {t: '8', s: '*'}
   - {t: '9', s: (}
-  - '#'
+  - '!'
   - $
   - '@'
-  - '&'
+  - {t: /, s: '?'}
   - {t: '4', s: $}
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
@@ -363,9 +363,9 @@ layers:
   - {t: '4', s: $}
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
-  - '&'
+  - {t: /, s: '?'}
   - '@'
-  - '!'
+  - '&'
   - '?'
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
@@ -377,7 +377,7 @@ layers:
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
   - '?'
-  - '!'
+  - '&'
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
