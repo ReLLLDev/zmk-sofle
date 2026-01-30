@@ -80,8 +80,8 @@
             bindings = <
 &kp ESC       &kp NON_US_BACKSLASH  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS    &lang_switch      &kp HOME  &kp END  &kp LEFT_SHIFT  &kp PRINTSCREEN  &kp INS     &kp DELETE
 &lang_switch  &kp B                 &kp L             &kp D              &kp C                 &kp V                    &kp LS(LEFT_ALT)  &kp J     &kp Y    &kp O           &kp U            &kp COMMA   &kp EQUAL
-&kp TAB       &kp N                 &kp R             &kp T              &kp S                 &kp G                    &trans            &kp P     &kp H    &kp A           &kp E            &kp I       &kp SLASH
-&kp LSHFT     &kp X                 &kp Q             &kp M              &kp W                 &kp Z                    &trans            &kp K     &kp F    &kp SQT         &kp SEMICOLON    &kp PERIOD  &kp RIGHT_ALT
+&kp TAB       &kp N                 &kp R             &kp T              &kp S                 &kp G                    &kp LEFT_ARROW    &kp P     &kp H    &kp A           &kp E            &kp I       &kp SLASH
+&kp LSHFT     &kp X                 &kp Q             &kp M              &kp W                 &kp Z                    &kp RIGHT_ARROW   &kp K     &kp F    &kp SQT         &kp SEMICOLON    &kp PERIOD  &kp RIGHT_ALT
 &kp C_MUTE    &kp LCTRL             &kp BSPC          &kp SPACE          &mo 1                 &mo 2                    &trans            &mo 2     &mo 1    &kp SPACE       &kp BSPC         &kp RCTRL
             >;
 
@@ -104,11 +104,11 @@
 
         layer_2 {
             bindings = <
-&kp TILDE        &kp CARET      &trans  &kp N0  &kp PERCENT  &kp STAR     &bt BT_CLR_ALL  &kp ASTERISK  &kp PERCENT  &kp N0  &trans  &kp CARET      &kp TILDE
-&kp DOLLAR       &kp HASH       &kp N7  &kp N8  &kp N9       &kp PLUS     &out OUT_USB    &kp PLUS      &kp N7       &kp N8  &kp N9  &kp HASH       &kp DOLLAR
-&kp AT           &kp AMPERSAND  &kp N4  &kp N5  &kp N6       &kp MINUS    &out OUT_BLE    &kp MINUS     &kp N4       &kp N5  &kp N6  &kp AMPERSAND  &kp AT
-&kp EXCLAMATION  &kp QUESTION   &kp N1  &kp N2  &kp N3       &kp RET      &bt BT_CLR      &kp RET       &kp N1       &kp N2  &kp N3  &kp QUESTION   &kp EXCLAMATION
-&trans           &trans         &trans  &trans  &trans       &trans       &trans          &trans        &trans       &trans  &trans  &trans
+&kp TILDE      &kp HASH         &kp KP_NUMLOCK  &kp N0  &kp PERCENT  &kp STAR     &bt BT_CLR_ALL  &kp ASTERISK  &kp PERCENT  &kp N0  &kp KP_NUMLOCK  &kp HASH         &kp TILDE
+&kp DOLLAR     &kp EXCLAMATION  &kp N7          &kp N8  &kp N9       &kp EQUAL    &out OUT_USB    &kp EQUAL     &kp N7       &kp N8  &kp N9          &kp EXCLAMATION  &kp DOLLAR
+&kp AT         &kp SLASH        &kp N4          &kp N5  &kp N6       &kp MINUS    &out OUT_BLE    &kp MINUS     &kp N4       &kp N5  &kp N6          &kp SLASH        &kp AT
+&kp AMPERSAND  &kp QUESTION     &kp N1          &kp N2  &kp N3       &kp RET      &bt BT_CLR      &kp RET       &kp N1       &kp N2  &kp N3          &kp QUESTION     &kp AMPERSAND
+&trans         &trans           &trans          &trans  &trans       &trans       &trans          &trans        &trans       &trans  &trans          &trans
             >;
 
             display-name = "layer2";
@@ -119,8 +119,8 @@
             bindings = <
 &kp ESCAPE      &kp NON_US_BACKSLASH  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS    &lang_switch      &kp HOME  &kp END  &kp LEFT_SHIFT  &kp PRINTSCREEN  &kp INSERT  &kp DELETE
 &lang_switch    &kp COMMA             &kp K             &kp L              &kp LBKT              &kp D                    &kp LS(LEFT_ALT)  &kp W     &kp DOT  &kp J           &kp E            &kp SQT     &kp O
-&kp TAB         &kp Y                 &kp H             &kp N              &kp C                 &kp U                    &trans            &kp G     &kp S    &kp F           &kp T            &kp B       &kp I
-&kp LEFT_SHIFT  &kp Z                 &kp X             &kp V              &kp Q                 &kp P                    &trans            &kp R     &kp A    &kp M           &kp SEMI         &kp SLASH   &kp LEFT_ALT
+&kp TAB         &kp Y                 &kp H             &kp N              &kp C                 &kp U                    &kp LEFT_ARROW    &kp G     &kp S    &kp F           &kp T            &kp B       &kp I
+&kp LEFT_SHIFT  &kp Z                 &kp X             &kp V              &kp Q                 &kp P                    &kp RIGHT_ARROW   &kp R     &kp A    &kp M           &kp SEMI         &kp SLASH   &kp LEFT_ALT
 &kp C_MUTE      &kp LCTRL             &kp BSPC          &kp SPACE          &mo 4                 &mo 5                    &trans            &mo 5     &mo 4    &kp SPACE       &kp BSPC         &kp RCTRL
             >;
 
@@ -144,11 +144,11 @@
         layer_5 {
             display-name = "layer5";
             bindings = <
-&kp TILDE        &kp CARET      &trans  &kp N0  &kp PERCENT  &kp STAR     &bt BT_CLR_ALL  &kp ASTERISK  &kp PERCENT  &kp N0  &trans  &kp CARET      &kp TILDE
-&kp DOLLAR       &kp HASH       &kp N7  &kp N8  &kp N9       &kp PLUS     &out OUT_USB    &kp PLUS      &kp N7       &kp N8  &kp N9  &kp HASH       &kp DOLLAR
-&kp AT           &kp AMPERSAND  &kp N4  &kp N5  &kp N6       &kp MINUS    &out OUT_BLE    &kp MINUS     &kp N4       &kp N5  &kp N6  &kp AMPERSAND  &kp AT
-&kp EXCLAMATION  &kp QUESTION   &kp N1  &kp N2  &kp N3       &kp RET      &bt BT_CLR      &kp RET       &kp N1       &kp N2  &kp N3  &kp QUESTION   &kp EXCLAMATION
-&trans           &trans         &trans  &trans  &trans       &trans       &trans          &trans        &trans       &trans  &trans  &trans
+&kp TILDE      &kp HASH         &kp KP_NUMLOCK  &kp N0  &kp PERCENT  &kp STAR     &bt BT_CLR_ALL  &kp ASTERISK  &kp PERCENT  &kp N0  &kp KP_NUMLOCK  &kp HASH         &kp TILDE
+&kp DOLLAR     &kp EXCLAMATION  &kp N7          &kp N8  &kp N9       &kp EQUAL    &out OUT_USB    &kp EQUAL     &kp N7       &kp N8  &kp N9          &kp EXCLAMATION  &kp DOLLAR
+&kp AT         &kp SLASH        &kp N4          &kp N5  &kp N6       &kp MINUS    &out OUT_BLE    &kp MINUS     &kp N4       &kp N5  &kp N6          &kp SLASH        &kp AT
+&kp AMPERSAND  &kp QUESTION     &kp N1          &kp N2  &kp N3       &kp RET      &bt BT_CLR      &kp RET       &kp N1       &kp N2  &kp N3          &kp QUESTION     &kp AMPERSAND
+&trans         &trans           &trans          &trans  &trans       &trans       &trans          &trans        &trans       &trans  &trans          &trans
             >;
 
             sensor-bindings = <&scroll_encoder>;
