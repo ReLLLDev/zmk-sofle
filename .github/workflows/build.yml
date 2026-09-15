@@ -7,5 +7,6 @@ on:
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    # Keep the build workflow aligned with the ZMK version in config/west.yml.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
 

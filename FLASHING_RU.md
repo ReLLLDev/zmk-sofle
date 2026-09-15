@@ -23,7 +23,7 @@ RGB по-прежнему может выключаться автоматиче
 
 ```powershell
 Set-Location C:\zmk-sofle
-git add config/eyelash_sofle.conf build.yaml FLASHING_RU.md
+git add config/eyelash_sofle.conf build.yaml .github/workflows/build.yml FLASHING_RU.md
 git commit -m "Fix display power management on both halves"
 git push origin main
 ```
@@ -96,9 +96,14 @@ ZMK сохраняет состояние внешнего питания во f
 ## Проверка изменений
 
 Настройки и механизм отключения питания сверены с исходниками ZMK v0.3.0,
-указанной в `config/west.yml`. Полная сборка и проверка на физической клавиатуре
-при подготовке исправления не выполнены: локально нет west, Docker Engine недоступен.
-Успешная сборка GitHub Actions и проверка после прошивки остаются обязательными.
+указанной в `config/west.yml`. В запуске GitHub Actions
+[34997378692](https://github.com/ReLLLDev/zmk-sofle/actions/runs/34997378692)
+этап West Build успешно завершился для обеих половин и settings_reset.
+Однако последующая проверка `Check if building a board without explicit ZMK compat`
+из сценария сборки `main` завершилась ошибкой и заблокировала выдачу артефактов.
+В `.github/workflows/build.yml` сценарий закреплён на `v0.3.0`, как и сама прошивка.
+После этой правки нужен новый успешный запуск Actions с выдачей UF2.
+Проверка на физической клавиатуре ещё не выполнена.
 
 Источники: [дисплеи ZMK](https://zmk.dev/docs/features/displays),
 [конфигурация дисплеев](https://zmk.dev/docs/config/displays),
