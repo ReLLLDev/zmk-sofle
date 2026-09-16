@@ -7,6 +7,6 @@ on:
 
 jobs:
   build:
-    # Keep the build workflow aligned with the ZMK version in config/west.yml.
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
+    # Local copy of the v0.3.0 build flow with Node 24 actions.
+    uses: ./.github/workflows/build-user-config.yml
 

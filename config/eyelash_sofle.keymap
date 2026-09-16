@@ -86,7 +86,7 @@
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
-            display-name = "LAYER0";
+            display-name = "EN";
         };
 
         layer_1 {
@@ -98,7 +98,7 @@
 &kp C_MUTE    &trans      &trans           &trans          &trans   &trans      &rgb_ug RGB_COLOR_HSB(298,100,50)  &trans                 &trans                &trans    &trans    &trans
             >;
 
-            display-name = "layer1";
+            display-name = "EN-M";
             sensor-bindings = <&scroll_encoder>;
         };
 
@@ -111,7 +111,7 @@
 &trans         &trans           &trans          &trans  &trans       &trans       &trans          &trans        &trans       &trans  &trans          &trans
             >;
 
-            display-name = "layer2";
+            display-name = "NUM";
             sensor-bindings = <&scroll_encoder>;
         };
 
@@ -124,7 +124,7 @@
 &kp C_MUTE      &kp LCTRL             &kp BSPC          &mo 4              &kp SPACE             &mo 5                    &trans            &mo 5     &kp SPACE  &mo 4           &kp BSPC         &kp RCTRL
             >;
 
-            display-name = "layer3";
+            display-name = "RU";
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
         };
 
@@ -137,12 +137,12 @@
 &trans    &trans    &trans           &trans     &trans   &trans      &rgb_ug RGB_COLOR_HSB(301,100,50)  &trans                 &trans                &trans             &trans            &trans
             >;
 
-            display-name = "layer4";
+            display-name = "RU-M";
             sensor-bindings = <&scroll_encoder>;
         };
 
         layer_5 {
-            display-name = "layer5";
+            display-name = "NUM";
             bindings = <
 &kp TILDE      &kp HASH         &kp KP_NUMLOCK  &kp N0  &kp PERCENT  &kp STAR     &bt BT_CLR_ALL  &kp ASTERISK  &kp PERCENT  &kp N0  &kp KP_NUMLOCK  &kp HASH         &kp TILDE
 &kp DOLLAR     &kp EXCLAMATION  &kp N7          &kp N8  &kp N9       &kp EQUAL    &out OUT_USB    &kp EQUAL     &kp N7       &kp N8  &kp N9          &kp EXCLAMATION  &kp DOLLAR

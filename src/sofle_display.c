@@ -30,6 +30,7 @@ static atomic_val_t observed_presses;
 static uint32_t last_tap;
 static uint8_t paw_pose; /* 0: resting, 1: left paw, 2: right paw */
 static bool next_paw;
+static bool eyes_closed;
 
 static int key_cat_listener(const zmk_event_t *eh) {
     const struct zmk_position_state_changed *event = as_zmk_position_state_changed(eh);
@@ -45,12 +46,43 @@ ZMK_SUBSCRIPTION(key_cat, zmk_position_state_changed);
 struct oled_state {
     uint8_t battery;
     uint8_t layer;
+    char layer_name[5];
     uint8_t profile;
     bool usb;
     bool connected;
 };
 
 static struct oled_state current_state;
+
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+/* Keep old Studio-saved names useful, while respecting new user-defined names. */
+static void layer_caption(char result[5], const char *name, uint8_t index) {
+    static const char *const legacy[] = {"LAYER0", "layer1", "layer2", "layer3", "layer4", "layer5"};
+    static const char *const captions[] = {"EN", "EN-M", "NUM", "RU", "RU-M", "NUM"};
+    for (int i = 0; i < ARRAY_SIZE(legacy); i++) {
+        if (name && strcmp(name, legacy[i]) == 0) {
+            snprintf(result, 5, "%s", captions[i]);
+            return;
+        }
+    }
+    if (!name || !name[0]) {
+        snprintf(result, 5, "L%u", (unsigned int)index);
+        return;
+    }
+    for (int i = 0; i < 4; i++) {
+        unsigned char ch = name[i];
+        if (ch >= 128 || (ch && ch < 32)) {
+            snprintf(result, 5, "L%u", (unsigned int)index);
+            return;
+        }
+        result[i] = ch >= 'a' && ch <= 'z' ? ch - 'a' + 'A' : ch;
+        if (!ch) {
+            return;
+        }
+    }
+    result[4] = '\0';
+}
+#endif
 
 static struct oled_state read_state(const zmk_event_t *eh) {
     struct oled_state state = {0};
@@ -62,6 +94,8 @@ static struct oled_state read_state(const zmk_event_t *eh) {
     state.profile = zmk_ble_active_profile_index() + 1;
     state.connected = zmk_ble_active_profile_is_connected();
     state.layer = zmk_keymap_highest_layer_active();
+    layer_caption(state.layer_name,
+                  zmk_keymap_layer_name(zmk_keymap_layer_index_to_id(state.layer)), state.layer);
 #else
     state.connected = zmk_split_bt_peripheral_is_connected();
 #endif
@@ -86,7 +120,7 @@ ZMK_SUBSCRIPTION(sofle_oled, zmk_layer_state_changed);
 ZMK_SUBSCRIPTION(sofle_oled, zmk_split_peripheral_status_changed);
 #endif
 
-/* Original pixel art, sized for the 40x22 area beside the status labels. */
+/* Original cat face, enlarged below to fill the portrait display width. */
 static const char *const cat_head[] = {
     "...#...........#...",
     "...##.........##...",
@@ -159,30 +193,45 @@ static void draw_cat(lv_draw_ctx_t *ctx, lv_draw_rect_dsc_t *ink,
                      const lv_area_t *area) {
     for (int y = 0; y < ARRAY_SIZE(cat_head); y++) {
         for (int x = 0; cat_head[y][x]; x++) {
-            if (cat_head[y][x] == '#') {
-                cat_pixel(ctx, ink, area, 6 + x, y);
+            if (cat_head[y][x] == '#' && !(eyes_closed && y == 7)) {
+                for (int yy = y * 18 / 13; yy < (y + 1) * 18 / 13; yy++) {
+                    for (int xx = x * 27 / 19; xx < (x + 1) * 27 / 19; xx++) {
+                        cat_pixel(ctx, ink, area, 2 + xx, yy);
+                    }
+                }
             }
         }
     }
+    if (eyes_closed) {
+        /* Restore face sides, replacing only the two eyes with closed lids. */
+        cat_pixel(ctx, ink, area, 2, 9);
+        cat_pixel(ctx, ink, area, 28, 9);
+        cat_pixel(ctx, ink, area, 2, 10);
+        cat_pixel(ctx, ink, area, 28, 10);
+        for (int x = 0; x < 4; x++) {
+            cat_pixel(ctx, ink, area, 7 + x, 11);
+            cat_pixel(ctx, ink, area, 20 + x, 11);
+        }
+    }
     for (int i = 0; i < 4; i++) {
-        cat_pixel(ctx, ink, area, 7 - i, 11 + i);
-        cat_pixel(ctx, ink, area, 23 + i, 11 + i);
+        cat_pixel(ctx, ink, area, 7 - i, 16 + i);
+        cat_pixel(ctx, ink, area, 23 + i, 16 + i);
     }
     for (int x = 1; x < 31; x++) {
-        cat_pixel(ctx, ink, area, x, 17);
-        cat_pixel(ctx, ink, area, x, 21);
+        cat_pixel(ctx, ink, area, x, 25);
+        cat_pixel(ctx, ink, area, x, 31);
     }
-    for (int y = 18; y < 21; y++) {
+    for (int y = 26; y < 31; y++) {
         cat_pixel(ctx, ink, area, 1, y);
         cat_pixel(ctx, ink, area, 30, y);
     }
     for (int x = 4; x < 28; x += 4) {
-        cat_pixel(ctx, ink, area, x, 19);
-        cat_pixel(ctx, ink, area, x + 1, 19);
+        cat_pixel(ctx, ink, area, x, 28);
+        cat_pixel(ctx, ink, area, x + 1, 28);
     }
     for (int paw = 0; paw < 2; paw++) {
         int x = paw ? 21 : 5;
-        int y = paw_pose == paw + 1 ? 16 : 13;
+        int y = paw_pose == paw + 1 ? 24 : 20;
         ink->bg_color = lv_color_black();
         for (int py = 0; py < 4; py++) {
             for (int px = 0; px < 6; px++) {
@@ -224,15 +273,34 @@ static void draw_screen(lv_event_t *event) {
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     if (current_state.usb) {
         text(ctx, &ink, &area, &lv_font_unscii_8, "USB", 2);
-        text(ctx, &ink, &area, &lv_font_unscii_8, "L", 13);
+        text(ctx, &ink, &area, &lv_font_unscii_8, "OK", 13);
     } else {
-        snprintf(label, sizeof(label), "L%u%s", (unsigned int)current_state.profile,
-                 current_state.connected ? "+" : "?");
+        snprintf(label, sizeof(label), "%u  ", (unsigned int)current_state.profile);
         text(ctx, &ink, &area, &lv_font_unscii_8, label, 13);
     }
 #else
-    text(ctx, &ink, &area, &lv_font_unscii_8, current_state.connected ? "R +" : "R ?", 13);
+    text(ctx, &ink, &area, &lv_font_unscii_8, "LINK", 13);
 #endif
+    if (!current_state.usb) {
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+        const int mark_y = 14;
+#else
+        const int mark_y = 3;
+#endif
+        if (current_state.connected) {
+            for (int i = 0; i < 3; i++) {
+                pixel(ctx, &ink, &area, 21 + i, mark_y + 2 + i);
+            }
+            for (int i = 0; i < 5; i++) {
+                pixel(ctx, &ink, &area, 23 + i, mark_y + 4 - i);
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                pixel(ctx, &ink, &area, 22 + i, mark_y + i);
+                pixel(ctx, &ink, &area, 26 - i, mark_y + i);
+            }
+        }
+    }
     /* Compact 3x5 digits scaled to 9x15: even 100 fits in 32 pixels. */
     static const uint16_t digits[] = {0x7b6f, 0x2c97, 0x73e7, 0x73cf, 0x5bc9,
                                       0x79cf, 0x79ef, 0x7249, 0x7bef, 0x7bcf};
@@ -253,21 +321,39 @@ static void draw_screen(lv_event_t *event) {
         }
     }
     text(ctx, &ink, &area, &lv_font_unscii_8, "%", 44);
+    if (current_state.battery <= 15) {
+        /* Static low-battery indicator; never wake the display just to flash it. */
+        for (int x = 1; x < 9; x++) {
+            pixel(ctx, &ink, &area, x, 45);
+            pixel(ctx, &ink, &area, x, 51);
+        }
+        for (int y = 46; y < 51; y++) {
+            pixel(ctx, &ink, &area, 1, y);
+            pixel(ctx, &ink, &area, 8, y);
+        }
+        pixel(ctx, &ink, &area, 9, 47);
+        pixel(ctx, &ink, &area, 9, 48);
+        pixel(ctx, &ink, &area, 4, 47);
+        pixel(ctx, &ink, &area, 4, 48);
+        pixel(ctx, &ink, &area, 4, 50);
+    }
     draw_cat(ctx, &ink, &area);
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-    text(ctx, &ink, &area, &lv_font_unscii_8, "LYR", 90);
+    text(ctx, &ink, &area, &lv_font_unscii_8, current_state.layer_name, 99);
     snprintf(label, sizeof(label), "%u", (unsigned int)current_state.layer);
+    text(ctx, &ink, &area, &lv_font_unscii_16, label, 110);
 #else
-    text(ctx, &ink, &area, &lv_font_unscii_8, "LINK", 90);
-    snprintf(label, sizeof(label), "%s", current_state.connected ? "OK" : "--");
+    text(ctx, &ink, &area, &lv_font_unscii_8, "KEYS", 99);
+    text(ctx, &ink, &area, &lv_font_unscii_8,
+         paw_pose ? "TYPE" : eyes_closed ? "ZZZ" : "REST", 114);
 #endif
-    text(ctx, &ink, &area, &lv_font_unscii_16, label, 103);
 }
 
 static void animate(lv_timer_t *timer) {
     (void)timer;
     atomic_val_t count = atomic_get(&key_presses);
     uint8_t previous_pose = paw_pose;
+    bool previous_eyes = eyes_closed;
     if (count != observed_presses) {
         observed_presses = count;
         next_paw = !next_paw;
@@ -276,7 +362,12 @@ static void animate(lv_timer_t *timer) {
     } else if (paw_pose && lv_tick_elaps(last_tap) >= 180) {
         paw_pose = 0;
     }
-    if (paw_pose != previous_pose) {
+    /* Brief blink every four seconds; sleepy after 15 seconds without presses.
+     * ZMK still owns the 30-second blanking timer; this never generates activity.
+     */
+    uint32_t quiet_ms = lv_tick_elaps(last_tap);
+    eyes_closed = !paw_pose && (quiet_ms >= 15000 || quiet_ms % 4000 >= 3800);
+    if (paw_pose != previous_pose || eyes_closed != previous_eyes) {
         lv_obj_invalidate(screen_obj);
     }
 }
@@ -288,6 +379,7 @@ lv_obj_t *zmk_display_status_screen(void) {
     lv_obj_set_style_bg_opa(screen_obj, LV_OPA_COVER, LV_PART_MAIN);
     lv_obj_clear_flag(screen_obj, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_add_event_cb(screen_obj, draw_screen, LV_EVENT_DRAW_MAIN, NULL);
+    last_tap = lv_tick_get();
     sofle_oled_init();
     /* ZMK stops lv_task_handler when blanking: no independent animation worker. */
     lv_timer_create(animate, 50, NULL);
