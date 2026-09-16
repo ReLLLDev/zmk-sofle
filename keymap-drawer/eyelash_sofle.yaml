@@ -1,6 +1,6 @@
 layout: {zmk_keyboard: eyelash_sofle}
 layers:
-  LAYER0:
+  EN:
   - $$mdi:keyboard-esc$$
   - \
   - {t: '[', s: '{'}
@@ -56,16 +56,16 @@ layers:
   - $$mdi:volume-off$$
   - $$mdi:apple-keyboard-control$$
   - {t: '$$mdi:backspace$$', type: backspace}
-  - layer1
+  - EN-M
   - $$mdi:keyboard-space$$
-  - layer2
+  - NUM
   - {t: '$$mdi:transfer$$', type: trans}
-  - layer2
+  - NUM
   - $$mdi:keyboard-space$$
-  - layer1
+  - EN-M
   - {t: '$$mdi:backspace$$', type: backspace}
   - $$mdi:apple-keyboard-control$$
-  layer1:
+  EN-M:
   - $$mdi:backspace-reverse-outline$$
   - Ins
   - PRINTSCREEN
@@ -130,7 +130,7 @@ layers:
   - {type: held alternate}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  layer2:
+  NUM:
   - '~'
   - '#'
   - KP NUMLOCK
@@ -195,7 +195,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  layer3:
+  RU:
   - $$mdi:keyboard-esc$$
   - \
   - {t: '[', s: '{'}
@@ -251,16 +251,16 @@ layers:
   - $$mdi:volume-off$$
   - $$mdi:apple-keyboard-control$$
   - {t: '$$mdi:backspace$$', type: backspace}
-  - layer4
+  - RU-M
   - $$mdi:keyboard-space$$
-  - layer5
+  - NUM
   - {t: '$$mdi:transfer$$', type: trans}
-  - layer5
+  - NUM
   - $$mdi:keyboard-space$$
-  - layer4
+  - RU-M
   - {t: '$$mdi:backspace$$', type: backspace}
   - $$mdi:apple-keyboard-control$$
-  layer4:
+  RU-M:
   - $$mdi:backspace-reverse-outline$$
   - INS
   - PRINTSCREEN
@@ -323,71 +323,6 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {type: held alternate}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  layer5:
-  - '~'
-  - '#'
-  - KP NUMLOCK
-  - {t: '0', s: )}
-  - '%'
-  - '*'
-  - BT CLR ALL
-  - '*'
-  - '%'
-  - {t: '0', s: )}
-  - KP NUMLOCK
-  - '#'
-  - '~'
-  - $
-  - '!'
-  - {t: '7', s: '&'}
-  - {t: '8', s: '*'}
-  - {t: '9', s: (}
-  - {t: '=', s: +}
-  - OUT USB
-  - {t: '=', s: +}
-  - {t: '7', s: '&'}
-  - {t: '8', s: '*'}
-  - {t: '9', s: (}
-  - '!'
-  - $
-  - '@'
-  - {t: /, s: '?'}
-  - {t: '4', s: $}
-  - {t: '5', s: '%'}
-  - {t: '6', s: ^}
-  - {t: '-', s: _}
-  - OUT BLE
-  - {t: '-', s: _}
-  - {t: '4', s: $}
-  - {t: '5', s: '%'}
-  - {t: '6', s: ^}
-  - {t: /, s: '?'}
-  - '@'
-  - '&'
-  - '?'
-  - {t: '1', s: '!'}
-  - {t: '2', s: '@'}
-  - {t: '3', s: '#'}
-  - {t: '$$mdi:keyboard-return$$', type: enter}
-  - $$mdi:bluetooth-off$$
-  - {t: '$$mdi:keyboard-return$$', type: enter}
-  - {t: '1', s: '!'}
-  - {t: '2', s: '@'}
-  - {t: '3', s: '#'}
-  - '?'
-  - '&'
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held alternate}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
 combos:
